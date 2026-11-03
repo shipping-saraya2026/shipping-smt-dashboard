@@ -81,6 +81,7 @@ input,select,textarea{
 }
 input[type=number]{font-family:var(--display);font-weight:500}
 input[type=checkbox]{width:auto;accent-color:var(--blue)}
+input[readonly]{background:var(--panel2);color:var(--mute)}
 input::placeholder{color:#a79f86}
 .chk{display:flex;gap:8px;align-items:center;margin:7px 0;font-size:13px;color:var(--ink)}
 .chk label{margin:0;color:var(--ink);font-size:13px;font-weight:400}
@@ -168,17 +169,13 @@ footer b{color:var(--neon);font-weight:600;text-shadow:0 0 8px rgba(57,255,20,.6
     <div class="g2">
       <div><label for="pPreset">ขนาดพาเลท</label>
         <select id="pPreset">
-          <option value="120x100">120 × 100 cm</option>
           <option value="110x110">110 × 110 cm</option>
-          <option value="120x80">120 × 80 cm (EUR)</option>
-          <option value="100x100">100 × 100 cm</option>
-          <option value="custom">กำหนดเอง</option>
         </select></div>
       <div><label for="ovh">ยื่นเกินขอบ/ด้าน (cm)</label><input id="ovh" type="number" step="0.5" min="0" value="0" inputmode="decimal"></div>
     </div>
     <div class="g3">
-      <div><label for="pL">ยาว (cm)</label><input id="pL" type="number" step="0.1" min="0" value="120" inputmode="decimal"></div>
-      <div><label for="pW">กว้าง (cm)</label><input id="pW" type="number" step="0.1" min="0" value="100" inputmode="decimal"></div>
+      <div><label for="pL">ยาว (cm)</label><input id="pL" type="number" value="110" readonly aria-readonly="true"></div>
+      <div><label for="pW">กว้าง (cm)</label><input id="pW" type="number" value="110" readonly aria-readonly="true"></div>
       <div><label for="pH">สูงพาเลท (cm)</label><input id="pH" type="number" step="0.1" min="0" value="15" inputmode="decimal"></div>
     </div>
     <div class="g3">
@@ -266,7 +263,7 @@ footer b{color:var(--neon);font-weight:600;text-shadow:0 0 8px rgba(57,255,20,.6
 var $=function(id){return document.getElementById(id);};
 var nv=function(id,d){var v=parseFloat($(id).value);return isFinite(v)?v:(d===undefined?0:d);};
 var f1=function(v){return (Math.round(v*10)/10).toLocaleString('en-US');};
-var DEF={cL:'40',cW:'30',cH:'25',cKg:'12',qty:'',pPreset:'120x100',ovh:'0',pL:'120',pW:'100',pH:'15',maxH:'150',maxKg:'1000',pKg:'20',hiCap:'',mode:'auto',ori:'auto'};
+var DEF={cL:'40',cW:'30',cH:'25',cKg:'12',qty:'',pPreset:'110x110',ovh:'0',pL:'110',pW:'110',pH:'15',maxH:'150',maxKg:'1000',pKg:'20',hiCap:'',mode:'auto',ori:'auto'};
 var rot=0,view='2d',last=null;
 var COL={A:[37,99,235],B:[220,38,38]};
 
