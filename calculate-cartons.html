@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Shipping SMT Pallet Planner</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: cream workbench. A dark brand bar at the top keeps the neon logo glowing; everything below is cream with blue labels and red key figures. */
+:root{
+  --bg:#f5eedb;
+  --panel:#fffaf0;
+  --panel2:#f9f0dc;
+  --line:#e0d3b2;
+  --ink:#1b2437;
+  --mute:#6b6a5c;
+  --blue:#1d4ed8;
+  --blue-soft:rgba(29,78,216,.10);
+  --red:#c62828;
+  --amber:#b45309;
+  --neon:#39ff14;
+  --dark:#070c08;
+  --display:'Chakra Petch','IBM Plex Sans Thai',system-ui,sans-serif;
+  --body:'IBM Plex Sans Thai',system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;
+  padding-block:0 40px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+.wrap{max-width:1180px;margin:0 auto}
+header{
+  display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  background:var(--dark);border:1px solid #16301c;border-radius:10px;
+  padding:18px 20px;margin:16px 0 18px;
+}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}
+.mark{width:52px;height:52px;flex:none;filter:drop-shadow(0 0 6px rgba(57,255,20,.85)) drop-shadow(0 0 16px rgba(57,255,20,.45))}
+.wm{
+  font-family:var(--display);font-weight:700;font-size:clamp(26px,5.2vw,40px);letter-spacing:.09em;line-height:1;
+  color:var(--neon);text-transform:uppercase;white-space:nowrap;
+  text-shadow:0 0 4px rgba(57,255,20,.9),0 0 14px rgba(57,255,20,.7),0 0 32px rgba(57,255,20,.45);
+}
+.wm span{color:var(--neon)}
+.tag{font-size:12px;color:#8fb09a;letter-spacing:.06em;margin-top:6px;text-transform:uppercase;font-family:var(--display)}
+.hbtns{display:flex;gap:8px;flex-wrap:wrap}
+button{
+  font:inherit;font-size:14px;cursor:pointer;border-radius:6px;padding:8px 14px;
+  border:1px solid var(--blue);background:transparent;color:var(--blue);font-family:var(--display);font-weight:600;letter-spacing:.03em;
+}
+button:hover{background:var(--blue-soft)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+header button.solid{background:var(--neon);border-color:var(--neon);color:#04100a}
+header button.solid:hover{background:#7dff62}
+header button.dim{border-color:#3a5543;color:#a9c4b0}
+header button.dim:hover{background:#101a13;color:#e3eee6}
+header button:focus-visible{outline-color:var(--neon)}
+
+main{display:grid;grid-template-columns:minmax(0,350px) minmax(0,1fr);gap:18px;align-items:start}
+@media(max-width:880px){main{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px;min-width:0}
+.panel+.panel{margin-top:18px}
+h2{
+  font-family:var(--display);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--blue);margin:0 0 12px;
+}
+.sec{border-top:1px dashed var(--line);margin-top:14px;padding-top:14px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:10px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:10px}
+label{display:block;font-size:12px;color:#2a3f8f;margin-bottom:3px;font-weight:500}
+input,select,textarea{
+  width:100%;min-width:0;font:inherit;font-size:16px;color:var(--ink);background:#fffdf6;
+  border:1px solid var(--line);border-radius:6px;padding:8px 9px;
+}
+input[type=number]{font-family:var(--display);font-weight:500}
+input[type=checkbox]{width:auto;accent-color:var(--blue)}
+input::placeholder{color:#a79f86}
+.chk{display:flex;gap:8px;align-items:center;margin:7px 0;font-size:13px;color:var(--ink)}
+.chk label{margin:0;color:var(--ink);font-size:13px;font-weight:400}
+.note{font-size:12px;color:var(--mute);line-height:1.55;margin-top:8px}
+.err{color:var(--red);font-size:13px;margin-bottom:8px;font-weight:500}
+
+.limit{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:99px;border:1px solid var(--red);color:var(--red);font-size:11px;letter-spacing:.04em;text-transform:none;font-family:var(--body);font-weight:500;vertical-align:middle}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:10px}
+@media(max-width:620px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{border:1px solid var(--line);background:var(--panel2);border-radius:6px;padding:10px 12px;min-width:0}
+.kpi .v{font-family:var(--display);font-weight:700;font-size:26px;line-height:1.1;color:var(--blue);font-variant-numeric:tabular-nums}
+.kpi.hot .v{color:var(--red)}
+.kpi .l{font-size:12px;color:var(--ink);margin-top:2px;font-weight:500}
+.kpi .s{font-size:11px;color:var(--mute);margin-top:2px;overflow-wrap:anywhere}
+
+.tabs{display:flex;gap:6px;margin:14px 0 10px}
+.tab{padding:6px 16px}
+.tab.on{background:var(--blue);color:#fff}
+.views{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:12px}
+@media(max-width:620px){.views{grid-template-columns:minmax(0,1fr)}}
+.vt{font-size:12px;color:var(--mute);margin:0 0 5px;font-family:var(--display);letter-spacing:.06em;text-transform:uppercase}
+svg.v{width:100%;height:auto;display:block;background:#fffdf6;border:1px solid var(--line);border-radius:6px;max-width:100%}
+#iso{max-height:560px;touch-action:none}
+.ctl{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.ctl button{padding:5px 11px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--ink);margin-top:8px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+th,td{padding:8px 8px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--blue);font-weight:600;font-size:12px}
+tbody tr{cursor:pointer}
+tbody tr:hover td{background:var(--panel2)}
+tr.best td:first-child::after{content:"ดีที่สุด";margin-left:8px;font-size:10px;border:1px solid var(--red);color:var(--red);border-radius:99px;padding:1px 7px}
+tr.sel td{background:var(--blue-soft)}
+td.big{font-family:var(--display);font-weight:700;color:var(--red)}
+#copyOut{margin-top:10px;height:130px;font-size:13px;font-family:var(--body)}
+footer{max-width:1180px;margin:22px auto 0;text-align:center;font-size:12px;color:#8fb09a;font-family:var(--display);letter-spacing:.08em;text-transform:uppercase;background:var(--dark);border-radius:10px;padding:12px}
+footer b{color:var(--neon);font-weight:600;text-shadow:0 0 8px rgba(57,255,20,.6)}
+.credit{font-family:var(--display);font-size:12px;letter-spacing:.06em;color:#8fb09a;margin-top:4px}
+.credit b{color:var(--neon);font-weight:600;text-shadow:0 0 8px rgba(57,255,20,.6)}
+@media(prefers-reduced-motion:no-preference){button{transition:background .15s,color .15s}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 48 48" fill="none" stroke="#39ff14" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+      <polygon points="24,5 41,14.5 24,24 7,14.5"/>
+      <polygon points="7,14.5 24,24 24,41 7,31.5"/>
+      <polygon points="24,24 41,14.5 41,31.5 24,41"/>
+      <line x1="7" y1="44" x2="24" y2="44"/><line x1="29" y1="44" x2="41" y2="37.5"/>
+    </svg>
+    <div>
+      <div class="wm" role="img" aria-label="Shipping SMT">Shipping <span>SMT</span></div>
+      <div class="tag">Pallet Loading Planner · Ti × Hi</div>
+      <div class="credit">Creator : <b>Sitthitas</b></div>
+    </div>
+  </div>
+  <div class="hbtns">
+    <button type="button" class="solid" id="copyBtn">คัดลอกผลลัพธ์</button>
+    <button type="button" class="dim" id="resetBtn">ค่าเริ่มต้น</button>
+  </div>
+</header>
+
+<main>
+<section class="panel" id="form">
+  <h2>ขนาดกล่องผลิตภัณฑ์ (Finish Good)</h2>
+  <div class="g3">
+    <div><label for="cL">ยาว (cm)</label><input id="cL" type="number" step="0.1" min="0" value="40" inputmode="decimal"></div>
+    <div><label for="cW">กว้าง (cm)</label><input id="cW" type="number" step="0.1" min="0" value="30" inputmode="decimal"></div>
+    <div><label for="cH">สูง (cm)</label><input id="cH" type="number" step="0.1" min="0" value="25" inputmode="decimal"></div>
+  </div>
+  <div class="g2">
+    <div><label for="cKg">น้ำหนัก/กล่อง (kg)</label><input id="cKg" type="number" step="0.01" min="0" value="12" inputmode="decimal"></div>
+    <div><label for="qty">จำนวนกล่องที่ต้องส่ง</label><input id="qty" type="number" step="1" min="0" placeholder="เช่น 500" inputmode="numeric"></div>
+  </div>
+  <div class="chk"><input type="checkbox" id="tilt"><label for="tilt">ตะแคง/พลิกกล่องได้ (ไม่ใช่ This Side Up)</label></div>
+
+  <div class="sec">
+    <h2>พาเลท</h2>
+    <div class="g2">
+      <div><label for="pPreset">ขนาดพาเลท</label>
+        <select id="pPreset">
+          <option value="120x100">120 × 100 cm</option>
+          <option value="110x110">110 × 110 cm</option>
+          <option value="120x80">120 × 80 cm (EUR)</option>
+          <option value="100x100">100 × 100 cm</option>
+          <option value="custom">กำหนดเอง</option>
+        </select></div>
+      <div><label for="ovh">ยื่นเกินขอบ/ด้าน (cm)</label><input id="ovh" type="number" step="0.5" min="0" value="0" inputmode="decimal"></div>
+    </div>
+    <div class="g3">
+      <div><label for="pL">ยาว (cm)</label><input id="pL" type="number" step="0.1" min="0" value="120" inputmode="decimal"></div>
+      <div><label for="pW">กว้าง (cm)</label><input id="pW" type="number" step="0.1" min="0" value="100" inputmode="decimal"></div>
+      <div><label for="pH">สูงพาเลท (cm)</label><input id="pH" type="number" step="0.1" min="0" value="15" inputmode="decimal"></div>
+    </div>
+    <div class="g3">
+      <div><label for="maxH">สูงรวมสูงสุด (cm)</label><input id="maxH" type="number" step="1" min="0" value="150" inputmode="decimal"></div>
+      <div><label for="maxKg">นน.รวมสูงสุด (kg)</label><input id="maxKg" type="number" step="1" min="0" value="1000" inputmode="decimal"></div>
+      <div><label for="pKg">นน.พาเลท (kg)</label><input id="pKg" type="number" step="0.1" min="0" value="20" inputmode="decimal"></div>
+    </div>
+    <div class="note">สูงรวม = สูงพาเลท + สินค้า · นน.รวม = พาเลท + สินค้า ใส่ตามสเปกของคลังหรือลูกค้าปลายทาง</div>
+  </div>
+
+  <div class="sec">
+    <h2>การจัดเรียง</h2>
+    <div class="g2">
+      <div><label for="mode">รูปแบบชั้น</label>
+        <select id="mode">
+          <option value="auto">อัตโนมัติ (ได้มากสุด)</option>
+          <option value="A">วางแนวตรงทั้งหมด</option>
+          <option value="B">หมุน 90° ทั้งหมด</option>
+        </select></div>
+      <div><label for="ori">ทิศทางกล่อง</label><select id="ori"><option value="auto">อัตโนมัติ</option></select></div>
+    </div>
+    <div class="g2">
+      <div><label for="hiCap">จำกัดจำนวนชั้น</label><input id="hiCap" type="number" step="1" min="1" placeholder="อัตโนมัติ" inputmode="numeric"></div>
+      <div></div>
+    </div>
+    <div class="chk"><input type="checkbox" id="fullOnly" checked><label for="fullOnly">เต็มชั้นเท่านั้น (ไม่มีชั้นเศษ)</label></div>
+    <div class="chk"><input type="checkbox" id="center" checked><label for="center">จัดกลางพาเลท</label></div>
+  </div>
+</section>
+
+<section>
+  <div class="panel">
+    <h2>ผลลัพธ์ที่ดีที่สุด<span class="limit" id="limitBadge" hidden></span></h2>
+    <div class="err" id="err"></div>
+    <div class="kpis">
+      <div class="kpi"><div class="v" id="kTi">–</div><div class="l">กล่อง/ชั้น (Ti)</div><div class="s" id="kTiS">&nbsp;</div></div>
+      <div class="kpi"><div class="v" id="kHi">–</div><div class="l">จำนวนชั้น (Hi)</div><div class="s" id="kHiS">&nbsp;</div></div>
+      <div class="kpi hot"><div class="v" id="kTot">–</div><div class="l">กล่อง/พาเลท</div><div class="s" id="kTotS">&nbsp;</div></div>
+      <div class="kpi"><div class="v" id="kKg">–</div><div class="l">นน.รวม (kg)</div><div class="s" id="kKgS">&nbsp;</div></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="v" id="kHt">–</div><div class="l">สูงรวม (cm)</div><div class="s" id="kHtS">&nbsp;</div></div>
+      <div class="kpi"><div class="v" id="kArea">–</div><div class="l">ใช้พื้นที่ชั้น</div></div>
+      <div class="kpi"><div class="v" id="kVol">–</div><div class="l">ใช้ปริมาตร</div></div>
+      <div class="kpi"><div class="v" id="kPal">–</div><div class="l">พาเลทที่ต้องใช้</div><div class="s" id="kPalS">&nbsp;</div></div>
+    </div>
+
+    <div class="tabs">
+      <button type="button" class="tab on" data-v="2d">วิว 2D</button>
+      <button type="button" class="tab" data-v="3d">วิว 3D</button>
+    </div>
+    <div class="views" id="v2d">
+      <div><p class="vt">Top view · 1 ชั้น</p><svg class="v" id="top"></svg></div>
+      <div><p class="vt">Side view</p><svg class="v" id="side"></svg></div>
+    </div>
+    <div id="v3d" hidden>
+      <div class="ctl">
+        <button type="button" id="rotL">⟲ หมุน</button>
+        <button type="button" id="rotR">หมุน ⟳</button>
+        <div class="chk" style="margin:0"><input type="checkbox" id="ilock" checked><label for="ilock">สลับชั้น 180° (Interlock)</label></div>
+        <div class="chk" style="margin:0"><input type="checkbox" id="explode"><label for="explode">แยกชั้น</label></div>
+      </div>
+      <svg class="v" id="iso"></svg>
+    </div>
+    <div class="legend">
+      <span><i style="background:#1d4ed8"></i>วางแนวตรง</span>
+      <span><i style="background:#c62828"></i>หมุน 90°</span>
+    </div>
+    <div class="note" id="tip"></div>
+  </div>
+
+  <div class="panel">
+    <h2>เปรียบเทียบทิศทางการวางกล่อง</h2>
+    <div class="tw"><table id="tbl"></table></div>
+    <div class="note">แตะแถวในตารางเพื่อเลือกทิศทางนั้น · ชั้นละกี่กล่องหาจากการแบ่งพื้นที่พาเลทเป็นบล็อก วางแนวตรงและหมุน 90° ผสมกัน (guillotine) · Hi = ⌊(สูงรวมสูงสุด − สูงพาเลท) ÷ สูงกล่อง⌋ แล้วจำกัดด้วยน้ำหนักสูงสุด · ไม่คำนวณแรงกดทับของกล่อง (BCT) ควรทดลองวางจริงก่อนกำหนดเป็นมาตรฐาน</div>
+    <textarea id="copyOut" readonly hidden aria-label="ข้อความผลลัพธ์"></textarea>
+  </div>
+</section>
+</main>
+<footer>Shipping <b>SMT</b> · Pallet Planner<div class="credit">Created by <b>Sitthitas</b> · Creator &amp; Copyright</div></footer>
+</div>
+
+<script>
+(function(){
+var $=function(id){return document.getElementById(id);};
+var nv=function(id,d){var v=parseFloat($(id).value);return isFinite(v)?v:(d===undefined?0:d);};
+var f1=function(v){return (Math.round(v*10)/10).toLocaleString('en-US');};
+var DEF={cL:'40',cW:'30',cH:'25',cKg:'12',qty:'',pPreset:'120x100',ovh:'0',pL:'120',pW:'100',pH:'15',maxH:'150',maxKg:'1000',pKg:'20',hiCap:'',mode:'auto',ori:'auto'};
+var rot=0,view='2d',last=null;
+var COL={A:[37,99,235],B:[220,38,38]};
+
+/* ---------- layer packing ---------- */
+function rast(l,w,max){
+  var s=new Set([0]);
+  for(var a=0;a*l<=max;a++){for(var b=0;a*l+b*w<=max;b++){s.add(a*l+b*w);}}
+  return Array.from(s).sort(function(x,y){return x-y;});
+}
+function flr(arr,v){
+  var lo=0,hi=arr.length-1,r=0;
+  while(lo<=hi){var m=(lo+hi)>>1;if(arr[m]<=v){r=arr[m];lo=m+1;}else hi=m-1;}
+  return r;
+}
+function guillotine(PX,PY,l,w){
+  var mn=Math.min(l,w);
+  if(mn<5)return null;
+  var xs=rast(l,w,PX),ys=rast(l,w,PY);
+  if(xs.length*ys.length*(xs.length+ys.length)>4e6)return null;
+  var memo=new Map();
+  function f(X,Y){
+    X=flr(xs,X);Y=flr(ys,Y);
+    if(X<mn||Y<mn)return {n:0};
+    var key=X*100003+Y;
+    var hit=memo.get(key);
+    if(hit)return hit;
+    var ub=Math.floor(X*Y/(l*w));
+    var best={n:0};
+    var c1=Math.floor(X/l),r1=Math.floor(Y/w);
+    if(c1*r1>best.n)best={n:c1*r1,t:{k:'h',cw:l,ch:w,cols:c1,rows:r1,r:0}};
+    var c2=Math.floor(X/w),r2=Math.floor(Y/l);
+    if(c2*r2>best.n)best={n:c2*r2,t:{k:'h',cw:w,ch:l,cols:c2,rows:r2,r:1}};
+    var i,p,q,n;
+    for(i=0;i<xs.length&&best.n<ub;i++){
+      p=xs[i];if(p<=0)continue;if(p>X/2)break;
+      q=f(p,Y);var rr=f(X-p,Y);n=q.n+rr.n;
+      if(n>best.n)best={n:n,t:{k:'v',at:p,a:q,b:rr}};
+    }
+    for(i=0;i<ys.length&&best.n<ub;i++){
+      p=ys[i];if(p<=0)continue;if(p>Y/2)break;
+      q=f(X,p);var r2b=f(X,Y-p);n=q.n+r2b.n;
+      if(n>best.n)best={n:n,t:{k:'s',at:p,a:q,b:r2b}};
+    }
+    memo.set(key,best);
+    return best;
+  }
+  var root=f(PX,PY);
+  var out=[];
+  (function emit(node,ox,oy){
+    if(!node||!node.t)return;
+    var t=node.t,i,j;
+    if(t.k==='h'){
+      for(i=0;i<t.cols;i++)for(j=0;j<t.rows;j++)out.push({x:ox+i*t.cw,y:oy+j*t.ch,w:t.cw,h:t.ch,r:t.r});
+    }else if(t.k==='v'){emit(t.a,ox,oy);emit(t.b,ox+t.at,oy);}
+    else{emit(t.a,ox,oy);emit(t.b,ox,oy+t.at);}
+  })(root,0,0);
+  return out;
+}
+function hom(PX,PY,cw,ch,r){
+  var cols=Math.floor(PX/cw),rows=Math.floor(PY/ch),out=[],i,j;
+  for(i=0;i<cols;i++)for(j=0;j<rows;j++)out.push({x:i*cw,y:j*ch,w:cw,h:ch,r:r});
+  return out;
+}
+function packLayer(PX,PY,l,w,mode){
+  if(mode==='A')return hom(PX,PY,l,w,0);
+  if(mode==='B')return hom(PX,PY,w,l,1);
+  var g=guillotine(PX,PY,l,w);
+  if(g)return g;
+  var a=hom(PX,PY,l,w,0),b=hom(PX,PY,w,l,1);
+  return a.length>=b.length?a:b;
+}
+
+/* ---------- evaluation ---------- */
+function orients(C,tilt){
+  var o=[{a:C.L,b:C.W,c:C.H,name:'ตั้งตรง'}];
+  if(tilt){
+    o.push({a:C.L,b:C.H,c:C.W,name:'ตะแคง (สูง = กว้าง)'});
+    o.push({a:C.W,b:C.H,c:C.L,name:'ตะแคง (สูง = ยาว)'});
+  }
+  var seen={},out=[];
+  o.forEach(function(x){
+    var k=[Math.min(x.a,x.b),Math.max(x.a,x.b),x.c].join('/');
+    if(!seen[k]){seen[k]=1;out.push(x);}
+  });
+  return out;
+}
+function evalOri(o,i,C,P,O){
+  var l=Math.round(o.a*10),w=Math.round(o.b*10);
+  var PXe=Math.round((P.L+2*P.ovh)*10),PYe=Math.round((P.W+2*P.ovh)*10);
+  var rects=(l>0&&w>0)?packLayer(PXe,PYe,l,w,O.mode):[];
+  var n=rects.length,xmin=0,xmax=0,ymin=0,ymax=0;
+  if(n){
+    xmin=Infinity;ymin=Infinity;xmax=-Infinity;ymax=-Infinity;
+    rects.forEach(function(r){xmin=Math.min(xmin,r.x);ymin=Math.min(ymin,r.y);xmax=Math.max(xmax,r.x+r.w);ymax=Math.max(ymax,r.y+r.h);});
+    var dx=O.center?(P.L*10-(xmax-xmin))/2-xmin:-P.ovh*10;
+    var dy=O.center?(P.W*10-(ymax-ymin))/2-ymin:-P.ovh*10;
+    rects=rects.map(function(r){return {x:r.x+dx,y:r.y+dy,w:r.w,h:r.h,r:r.r};});
+    xmin+=dx;xmax+=dx;ymin+=dy;ymax+=dy;
+  }
+  var c=o.c;
+  var hiMax=Math.max(0,Math.floor((P.maxH-P.H)/c+1e-9));
+  var kgCap=C.kg>0?Math.max(0,Math.floor((P.maxKg-P.kg)/C.kg+1e-9)):Infinity;
+  var layers=0,total=0,limit='height';
+  if(n){
+    var hiLim=hiMax,manual=false;
+    if(O.hiCap>0&&O.hiCap<hiLim){hiLim=O.hiCap;manual=true;}
+    if(O.fullOnly){
+      var lw=isFinite(kgCap)?Math.floor(kgCap/n):Infinity;
+      layers=Math.min(hiLim,lw);total=n*layers;
+      limit=lw<hiLim?'weight':(manual?'manual':'height');
+    }else{
+      total=Math.min(n*hiLim,kgCap);layers=Math.ceil(total/n);
+      limit=kgCap<n*hiLim?'weight':(manual?'manual':'height');
+    }
+  }
+  var height=P.H+layers*c;
+  var kg=P.kg+total*C.kg;
+  var nA=rects.filter(function(r){return r.r===0;}).length;
+  return {i:i,name:o.name,a:o.a,b:o.b,c:c,rects:rects,n:n,nA:nA,nB:n-nA,layers:layers,total:total,limit:limit,
+    height:height,kg:kg,
+    areaU:n*o.a*o.b/(P.L*P.W)*100,
+    volU:layers>0?total*C.L*C.W*C.H/(P.L*P.W*layers*c)*100:0,
+    xmin:xmin,xmax:xmax,ymin:ymin,ymax:ymax};
+}
+var LIM={height:'จำกัดด้วยความสูง',weight:'จำกัดด้วยน้ำหนัก',manual:'จำกัดตามชั้นที่ตั้ง'};
+
+function compute(){
+  var C={L:nv('cL'),W:nv('cW'),H:nv('cH'),kg:nv('cKg')};
+  var P={L:nv('pL'),W:nv('pW'),H:nv('pH'),maxH:nv('maxH'),maxKg:nv('maxKg'),kg:nv('pKg'),ovh:Math.max(0,nv('ovh'))};
+  var O={mode:$('mode').value,center:$('center').checked,fullOnly:$('fullOnly').checked,hiCap:Math.floor(nv('hiCap'))};
+  if(!(C.L>0&&C.W>0&&C.H>0&&P.L>0&&P.W>0))return {err:'กรอกขนาดกล่องผลิตภัณฑ์และขนาดพาเลทให้มากกว่า 0'};
+  var ors=orients(C,$('tilt').checked);
+  var res=ors.map(function(o,i){return evalOri(o,i,C,P,O);});
+  var best=0;
+  res.forEach(function(r,i){
+    var b=res[best];
+    if(r.total>b.total||(r.total===b.total&&r.height<b.height))best=i;
+  });
+  return {C:C,P:P,O:O,res:res,best:best,qty:Math.floor(nv('qty'))};
+}
+
+/* ---------- drawing ---------- */
+function shade(rgb,f){return 'rgb('+rgb.map(function(v){return Math.round(v*f);}).join(',')+')';}
+
+function drawTop(r,P){
+  var PX=P.L*10,PY=P.W*10,m=Math.max(PX,PY),pad=m*0.1,sw=m/380;
+  var s='<rect x="0" y="0" width="'+PX+'" height="'+PY+'" fill="#efe3c6" stroke="#8a7a4f" stroke-width="'+(sw*1.8)+'"/>';
+  if(P.ovh>0){var o=P.ovh*10;s+='<rect x="'+(-o)+'" y="'+(-o)+'" width="'+(PX+2*o)+'" height="'+(PY+2*o)+'" fill="none" stroke="#b45309" stroke-width="'+sw+'" stroke-dasharray="'+(sw*6)+' '+(sw*5)+'"/>';}
+  var lab=r.rects.length<=120;
+  r.rects.forEach(function(q,i){
+    var A=q.r===0;
+    s+='<rect x="'+q.x+'" y="'+q.y+'" width="'+q.w+'" height="'+q.h+'" fill="'+(A?'rgba(29,78,216,.16)':'rgba(198,40,40,.15)')+'" stroke="'+(A?'#1d4ed8':'#c62828')+'" stroke-width="'+sw+'"/>';
+    if(lab){
+      var fs=Math.min(q.w,q.h)*0.34;
+      s+='<text x="'+(q.x+q.w/2)+'" y="'+(q.y+q.h/2+fs*0.35)+'" font-size="'+fs+'" text-anchor="middle" fill="'+(A?'#1d4ed8':'#c62828')+'" fill-opacity=".75" font-family="Chakra Petch,sans-serif">'+(i+1)+'</text>';
+    }
+  });
+  var fs=pad*0.42;
+  s+='<text x="'+(PX/2)+'" y="'+(-pad*0.38)+'" font-size="'+fs+'" text-anchor="middle" fill="#6b6a5c" font-family="Chakra Petch,sans-serif">'+f1(P.L)+' cm</text>';
+  s+='<text transform="translate('+(-pad*0.38)+' '+(PY/2)+') rotate(-90)" font-size="'+fs+'" text-anchor="middle" fill="#6b6a5c" font-family="Chakra Petch,sans-serif">'+f1(P.W)+' cm</text>';
+  var svg=$('top');
+  svg.setAttribute('viewBox',(-pad)+' '+(-pad)+' '+(PX+pad*2)+' '+(PY+pad*2));
+  svg.innerHTML=s;
+}
+
+function drawSide(r,P,C){
+  var PX=P.L*10,maxZ=P.maxH*10,tot=r.height*10,top=Math.max(maxZ,tot,P.H*10+10);
+  var pad=Math.max(PX,top)*0.06,sw=Math.max(PX,top)/380;
+  var yy=function(z){return top-z;};
+  var ph=P.H*10,c=r.c*10;
+  var s='<rect x="0" y="'+yy(ph)+'" width="'+PX+'" height="'+ph+'" fill="#d9c9a0" stroke="#8a7a4f" stroke-width="'+sw+'"/>';
+  var edges={};
+  r.rects.forEach(function(q){edges[Math.round(q.x)]=1;edges[Math.round(q.x+q.w)]=1;});
+  var ek=Object.keys(edges).map(Number);
+  for(var li=0;li<r.layers;li++){
+    var z0=ph+li*c;
+    var full=(li+1)*r.n<=r.total;
+    var op=full?1:0.45;
+    s+='<rect x="'+r.xmin+'" y="'+yy(z0+c)+'" width="'+(r.xmax-r.xmin)+'" height="'+c+'" fill="rgba(29,78,216,.14)" stroke="#1d4ed8" stroke-width="'+sw+'" opacity="'+op+'"/>';
+    if(r.layers*ek.length<400){
+      ek.forEach(function(x){s+='<line x1="'+x+'" x2="'+x+'" y1="'+yy(z0+c)+'" y2="'+yy(z0)+'" stroke="#1d4ed8" stroke-opacity=".3" stroke-width="'+(sw*0.7)+'"/>';});
+    }
+  }
+  var fs=pad*0.5;
+  s+='<line x1="'+(-pad*0.5)+'" x2="'+(PX+pad*0.5)+'" y1="'+yy(maxZ)+'" y2="'+yy(maxZ)+'" stroke="#b45309" stroke-width="'+sw+'" stroke-dasharray="'+(sw*6)+' '+(sw*5)+'"/>';
+  s+='<text x="'+(PX+pad*0.7)+'" y="'+(yy(maxZ)+fs*0.35)+'" font-size="'+fs+'" fill="#b45309" font-family="Chakra Petch,sans-serif">สูงสุด '+f1(P.maxH)+'</text>';
+  s+='<text x="'+(PX+pad*0.7)+'" y="'+(yy(tot)+fs*0.35)+'" font-size="'+fs+'" fill="#c62828" font-family="Chakra Petch,sans-serif">'+f1(r.height)+' cm</text>';
+  var svg=$('side');
+  svg.setAttribute('viewBox',(-pad)+' '+(-pad)+' '+(PX+pad*7.5)+' '+(top+pad*2));
+  svg.innerHTML=s;
+}
+
+function rotPt(x,y,k,cx,cy){
+  for(var i=0;i<k;i++){var nx=cx-(y-cy),ny=cy+(x-cx);x=nx;y=ny;}
+  return [x,y];
+}
+function rotRect(q,k,cx,cy){
+  var a=rotPt(q.x,q.y,k,cx,cy),b=rotPt(q.x+q.w,q.y+q.h,k,cx,cy);
+  return {x:Math.min(a[0],b[0]),y:Math.min(a[1],b[1]),w:Math.abs(b[0]-a[0]),h:Math.abs(b[1]-a[1])};
+}
+function drawIso(r,P){
+  var PX=P.L*10,PY=P.W*10,cx=PX/2,cy=PY/2,ph=P.H*10,c=r.c*10;
+  var ex=$('explode').checked?c*0.6:0,il=$('ilock').checked;
+  var boxes=[];
+  var slab=rotRect({x:0,y:0,w:PX,h:PY},rot,cx,cy);
+  boxes.push({x:slab.x,y:slab.y,z:0,w:slab.w,d:slab.h,h:ph,col:[206,190,150],f:[1,0.82,0.66]});
+  for(var li=0;li<r.layers;li++){
+    var cnt=Math.min(r.n,r.total-li*r.n);
+    if(cnt<=0)break;
+    var z=ph+li*(c+ex);
+    for(var k=0;k<cnt;k++){
+      var q=r.rects[k];
+      if(il&&li%2===1)q={x:r.xmin+r.xmax-q.x-q.w,y:r.ymin+r.ymax-q.y-q.h,w:q.w,h:q.h,r:q.r};
+      var t=rotRect(q,rot,cx,cy);
+      boxes.push({x:t.x,y:t.y,z:z,w:t.w,d:t.h,h:c,col:COL[q.r===0?'A':'B'],f:[1,0.8,0.6]});
+    }
+  }
+  boxes.sort(function(a,b){
+    if(a.z!==b.z)return a.z-b.z;
+    return (a.x+a.w/2+a.y+a.d/2)-(b.x+b.w/2+b.y+b.d/2);
+  });
+  var X0=Infinity,X1=-Infinity,Y0=Infinity,Y1=-Infinity;
+  var pr=function(x,y,z){return [(x-y)*0.866,(x+y)*0.5-z];};
+  var s='';
+  var sw=Math.max(PX,PY)/450;
+  boxes.forEach(function(b){
+    var x=b.x,y=b.y,z=b.z,w=b.w,d=b.d,h=b.h;
+    var T=[pr(x,y,z+h),pr(x+w,y,z+h),pr(x+w,y+d,z+h),pr(x,y+d,z+h)];
+    var Lf=[pr(x,y+d,z+h),pr(x+w,y+d,z+h),pr(x+w,y+d,z),pr(x,y+d,z)];
+    var Rt=[pr(x+w,y,z+h),pr(x+w,y+d,z+h),pr(x+w,y+d,z),pr(x+w,y,z)];
+    var st=shade(b.col,0.5);
+    var poly=function(pts,f){
+      pts.forEach(function(p){X0=Math.min(X0,p[0]);X1=Math.max(X1,p[0]);Y0=Math.min(Y0,p[1]);Y1=Math.max(Y1,p[1]);});
+      return '<polygon points="'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ')+'" fill="'+shade(b.col,f)+'" stroke="'+st+'" stroke-opacity=".7" stroke-width="'+sw+'" stroke-linejoin="round"/>';
+    };
+    s+=poly(Lf,b.f[1])+poly(Rt,b.f[2])+poly(T,b.f[0]);
+  });
+  var pad=(X1-X0)*0.05;
+  var svg=$('iso');
+  svg.setAttribute('viewBox',(X0-pad)+' '+(Y0-pad)+' '+(X1-X0+pad*2)+' '+(Y1-Y0+pad*2));
+  svg.innerHTML=s;
+}
+
+/* ---------- render ---------- */
+function setT(id,v){$(id).textContent=v;}
+function render(){
+  var R=compute();
+  var err=$('err');
+  if(R.err){
+    err.textContent=R.err;last=null;
+    ['kTi','kHi','kTot','kKg','kHt','kArea','kVol','kPal'].forEach(function(k){setT(k,'–');});
+    $('top').innerHTML='';$('side').innerHTML='';$('iso').innerHTML='';$('tbl').innerHTML='';$('limitBadge').hidden=true;
+    return;
+  }
+  /* rebuild orientation list */
+  var sel=$('ori'),prev=sel.value;
+  sel.innerHTML='<option value="auto">อัตโนมัติ</option>'+R.res.map(function(r,i){
+    return '<option value="'+i+'">'+r.name+' · ฐาน '+f1(r.a)+'×'+f1(r.b)+' สูง '+f1(r.c)+'</option>';
+  }).join('');
+  sel.value=(prev!=='auto'&&+prev<R.res.length)?prev:'auto';
+  var idx=sel.value==='auto'?R.best:+sel.value;
+  var r=R.res[idx],P=R.P,C=R.C;
+  last={R:R,r:r};
+
+  if(r.n===0){err.textContent='กล่องใหญ่กว่าพื้นที่พาเลทในทิศทางนี้ ลองเปิด "ตะแคงกล่อง" หรือเพิ่มค่ายื่นเกินขอบ';}
+  else if(r.layers===0){err.textContent='วางไม่ได้แม้ชั้นเดียว ตรวจสอบสูงรวมสูงสุดหรือน้ำหนักสูงสุด';}
+  else err.textContent='';
+
+  setT('kTi',r.n);
+  setT('kTiS',r.n?('ตรง '+r.nA+' · หมุน '+r.nB):'');
+  setT('kHi',r.layers);
+  setT('kHiS',r.n?LIM[r.limit]:'');
+  setT('kTot',r.total);
+  setT('kTotS',r.layers?(r.n+' × '+r.layers):'');
+  setT('kKg',f1(r.kg));
+  setT('kKgS','สูงสุด '+f1(P.maxKg));
+  setT('kHt',f1(r.height));
+  setT('kHtS','สูงสุด '+f1(P.maxH));
+  setT('kArea',r.n?f1(r.areaU)+'%':'–');
+  setT('kVol',r.layers?f1(r.volU)+'%':'–');
+  var lb=$('limitBadge');
+  if(r.n&&r.layers){lb.hidden=false;lb.textContent=LIM[r.limit];}else lb.hidden=true;
+
+  if(R.qty>0&&r.total>0){
+    var pal=Math.ceil(R.qty/r.total),full=Math.floor(R.qty/r.total),rem=R.qty-full*r.total;
+    setT('kPal',pal);
+    setT('kPalS',rem===0?(full+' พาเลทเต็ม'):(full>0?(full+' เต็ม + 1 พาเลท '+rem+' กล่อง'):('1 พาเลท '+rem+' กล่อง')));
+  }else{setT('kPal','–');setT('kPalS',R.qty>0?'':'ใส่จำนวนกล่องที่ต้องส่ง');}
+
+  drawTop(r,P);drawSide(r,P,C);
+  if(view==='3d')drawIso(r,P);
+
+  setT('tip',r.n?('ทิศทางที่ใช้: '+r.name+' · ฐาน '+f1(r.a)+' × '+f1(r.b)+' cm สูง '+f1(r.c)+' cm · ชั้นเดียววางได้ '+r.n+' กล่อง'):'');
+
+  var h='<thead><tr><th>ทิศทาง</th><th>ฐาน (cm)</th><th>สูง</th><th>Ti</th><th>Hi</th><th>กล่อง/พาเลท</th><th>นน.รวม</th><th>สูงรวม</th></tr></thead><tbody>';
+  R.res.forEach(function(q,i){
+    h+='<tr data-i="'+i+'" class="'+(i===R.best?'best ':'')+(i===idx?'sel':'')+'"><td>'+q.name+'</td><td>'+f1(q.a)+'×'+f1(q.b)+'</td><td>'+f1(q.c)+'</td><td>'+q.n+'</td><td>'+q.layers+'</td><td class="big">'+q.total+'</td><td>'+f1(q.kg)+'</td><td>'+f1(q.height)+'</td></tr>';
+  });
+  $('tbl').innerHTML=h+'</tbody>';
+}
+
+/* ---------- events ---------- */
+['cL','cW','cH','cKg','qty','ovh','pL','pW','pH','maxH','maxKg','pKg','hiCap','mode','ori','tilt','fullOnly','center','ilock','explode'].forEach(function(id){
+  $(id).addEventListener('input',render);
+  $(id).addEventListener('change',render);
+});
+$('pPreset').addEventListener('change',function(){
+  var v=this.value;
+  if(v!=='custom'){var p=v.split('x');$('pL').value=p[0];$('pW').value=p[1];}
+  render();
+});
+['pL','pW'].forEach(function(id){
+  $(id).addEventListener('input',function(){
+    var k=$('pL').value+'x'+$('pW').value;
+    var opts=Array.from($('pPreset').options).map(function(o){return o.value;});
+    $('pPreset').value=opts.indexOf(k)>=0?k:'custom';
+  });
+});
+$('tbl').addEventListener('click',function(e){
+  var tr=e.target.closest('tr[data-i]');
+  if(!tr)return;
+  $('ori').value=tr.getAttribute('data-i');
+  render();
+});
+Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(b){
+  b.addEventListener('click',function(){
+    view=b.getAttribute('data-v');
+    Array.prototype.forEach.call(document.querySelectorAll('.tab'),function(x){x.classList.toggle('on',x===b);});
+    $('v2d').hidden=view!=='2d';
+    $('v3d').hidden=view!=='3d';
+    render();
+  });
+});
+$('rotL').addEventListener('click',function(){rot=(rot+3)%4;render();});
+$('rotR').addEventListener('click',function(){rot=(rot+1)%4;render();});
+$('resetBtn').addEventListener('click',function(){
+  Object.keys(DEF).forEach(function(k){$(k).value=DEF[k];});
+  $('tilt').checked=false;$('fullOnly').checked=true;$('center').checked=true;$('ilock').checked=true;$('explode').checked=false;
+  $('copyOut').hidden=true;rot=0;render();
+});
+$('copyBtn').addEventListener('click',function(){
+  if(!last)return;
+  var R=last.R,r=last.r,P=R.P,C=R.C;
+  var t='Shipping SMT · Pallet Loading Planner\n'+
+    'กล่อง: '+f1(C.L)+'×'+f1(C.W)+'×'+f1(C.H)+' cm, '+f1(C.kg)+' kg\n'+
+    'พาเลท: '+f1(P.L)+'×'+f1(P.W)+' cm สูง '+f1(P.H)+' cm (สูงรวมไม่เกิน '+f1(P.maxH)+' cm, ไม่เกิน '+f1(P.maxKg)+' kg)\n'+
+    'ทิศทาง: '+r.name+' (ฐาน '+f1(r.a)+'×'+f1(r.b)+' สูง '+f1(r.c)+')\n'+
+    'ผลลัพธ์: Ti '+r.n+' × Hi '+r.layers+' = '+r.total+' กล่อง/พาเลท · นน.รวม '+f1(r.kg)+' kg · สูงรวม '+f1(r.height)+' cm\n'+
+    'ใช้พื้นที่ชั้น '+f1(r.areaU)+'% · ใช้ปริมาตร '+f1(r.volU)+'%';
+  if(R.qty>0&&r.total>0){
+    var full=Math.floor(R.qty/r.total),rem=R.qty-full*r.total;
+    t+='\nต้องส่ง '+R.qty+' กล่อง = '+Math.ceil(R.qty/r.total)+' พาเลท ('+full+' เต็ม'+(rem?' + 1 พาเลท '+rem+' กล่อง':'')+')';
+  }
+  var ta=$('copyOut');
+  ta.value=t;
+  var showFallback=function(){ta.hidden=false;ta.focus();ta.select();};
+  try{
+    navigator.clipboard.writeText(t).then(function(){
+      $('copyBtn').textContent='คัดลอกแล้ว';
+      setTimeout(function(){$('copyBtn').textContent='คัดลอกผลลัพธ์';},1600);
+    },showFallback);
+  }catch(e){showFallback();}
+});
+
+render();
+})();
+</script>
+</body>
+</html>
