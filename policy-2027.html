@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>นโยบาย SMT 2027 – แนวทางแผนกคลังสินค้า-ชิปปิ้ง</title>
+<meta name="description" content="สาเหตุ เหตุผล และแนวทาง Action ของแผนกคลังสินค้า-ชิปปิ้ง เพื่อตอบสนองนโยบาย SMT ปี 2027">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#F4F1EA;color:#1B2430;font-family:'IBM Plex Sans Thai','Noto Sans Thai',Tahoma,system-ui,sans-serif;line-height:1.55;-webkit-text-size-adjust:100%}
+*{box-sizing:border-box}
+.wrap{max-width:1152px;margin:0 auto;padding:0 20px}
+.card{background:#fff;border:1px solid #D9D3C5;border-radius:14px;padding:24px;min-width:0}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:1px 10px;border-radius:999px;line-height:1.7;white-space:nowrap}
+.tag-doc{background:#0B5F63;color:#fff}
+.tag-prop{background:#FBE9D0;color:#7A3500;border:1px dashed #B45309}
+.kicker{font-size:16px;font-weight:600;letter-spacing:.06em;color:#0B5F63;margin:0;scroll-margin-top:72px}
+.h2{margin:4px 0 0;font-size:40px;line-height:1.25;font-weight:700;scroll-margin-top:72px}
+.lead{margin:8px 0 0;font-size:17px;color:#3F4854;max-width:780px}
+.row{display:flex;flex-wrap:wrap;gap:16px}
+.col{flex:1 1 320px;min-width:0}
+.node{flex:1 1 150px;min-width:0;background:#fff;border:1px solid #D9D3C5;border-radius:12px;padding:14px;font-size:15px;font-weight:500}
+.node small{display:block;font-size:12.5px;font-weight:400;color:#4B5563;margin-top:2px}
+.arrow{align-self:center;font-size:22px;color:#0B5F63;font-weight:700;flex:0 0 auto}
+.num{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:#0B5F63;color:#fff;font-weight:700;font-size:16px;flex:0 0 auto}
+ul.ck{margin:12px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+ul.ck li{position:relative;padding-left:24px;font-size:15.5px}
+ul.ck li:before{content:"";position:absolute;left:0;top:.5em;width:10px;height:10px;border:2px solid #B45309;border-radius:2px}
+.lbl{font-size:12.5px;font-weight:600;letter-spacing:.04em;color:#4B5563;margin:14px 0 0}
+.bar-track{flex:1 1 auto;background:#ECE7DA;border-radius:6px;height:30px;position:relative;min-width:0}
+.bar-fill{height:30px;border-radius:6px;display:flex;align-items:center;padding:0 10px;font-size:14px;font-weight:600;color:#fff;white-space:nowrap}
+.kpi{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;font-size:16px;padding:14px 0;border-bottom:1px solid #E5E0D3}
+.kpi:last-child{border-bottom:0}
+.topnav{position:sticky;top:0;z-index:10;background:rgba(244,241,234,.94);backdrop-filter:blur(6px);border-bottom:1px solid #D9D3C5}
+.topnav .wrap{display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center;padding-top:10px;padding-bottom:10px;font-size:14px}
+.topnav a{color:#0B3C40;text-decoration:none;font-weight:600;padding:4px 2px;border-bottom:2px solid transparent}
+.topnav a:hover{border-bottom-color:#B45309}
+.topnav .brand{margin-right:auto;font-weight:700}
+.sitefoot{margin-top:56px;padding:22px 0 40px;border-top:1px solid #D9D3C5;font-size:13.5px;color:#4B5563}
+.sitefoot .wrap{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+.sitefoot b{color:#1B2430}
+@media (max-width:820px){
+  .hero-h1{font-size:36px !important}
+  .h2{font-size:28px}
+  .kicker[style*="24px"]{font-size:20px !important}
+  .wrap{padding:0 16px}
+  .card{padding:20px}
+}
+@media (max-width:520px){.hero-h1{font-size:30px !important}.topnav .brand{display:none}.arrow{display:none}}
+@page{size:A4;margin:10mm}
+@media print{
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#F4F1EA}
+  .topnav{display:none}
+  .card,.node,.kpi{break-inside:avoid}
+  .h2,.kicker{break-after:avoid}
+}
+</style>
+</head>
+<body>
+<nav class="topnav" aria-label="เมนูหัวข้อ"><div class="wrap"><span class="brand">นโยบาย SMT 2027 · คลังสินค้า-ชิปปิ้ง</span><a href="#s1">1 สาเหตุ</a><a href="#s2">2 เหตุผล</a><a href="#s3">3 Action</a><a href="#s4">4 แผนงาน/KPI</a></div></nav>
+<main>
+
+<!-- HERO -->
+<div style="background:#0B3C40;color:#fff;padding:48px 0 44px">
+  <div class="wrap">
+    <p style="margin:0;font-size:14px;font-weight:600;letter-spacing:.08em;color:#9FD8D3">สรุปการประชุมนโยบาย SMT ปี 2027 · COO Kitano · 4 พ.ย. 2026</p>
+    <h1 class="hero-h1" style="margin:10px 0 0;font-size:60px;line-height:1.2;font-weight:700">แผนกคลังสินค้า-ชิปปิ้ง<br>ต้องทำอะไร เพื่อตอบนโยบายปี 2027</h1>
+    <p style="margin:14px 0 0;font-size:30px;font-family:'Noto Sans JP','IBM Plex Sans Thai',sans-serif;font-weight:700;color:#F6D9A8">継承から自立へ <span style="font-size:18px;font-weight:500;color:#fff">～ SMT の新しいチャレンジ ～</span></p>
+    <p style="margin:6px 0 0;font-size:16px;color:#CFE7E5">สืบทอด → พึ่งพาตนเอง และท้าทายสิ่งใหม่</p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:22px;align-items:center;font-size:14px;color:#CFE7E5">
+      <span><span class="tag tag-doc" style="background:#fff;color:#0B3C40">จากเอกสาร</span>&nbsp; ข้อมูลที่ COO ประกาศ</span>
+      <span><span class="tag tag-prop" style="background:#FBE9D0">ข้อเสนอแนะ</span>&nbsp; แนวทางที่แปลงให้เหมาะกับคลัง-ชิปปิ้ง (ผู้จัดการปรับได้)</span>
+    </div>
+  </div>
+</div>
+
+<!-- SUMMARY STRIP -->
+<div class="wrap" style="margin-top:-26px">
+  <div class="row">
+    <div class="card col" style="border-top:5px solid #B42318">
+      <p class="kicker" style="color:#8F1D14;font-size:24px;letter-spacing:0">1 · สาเหตุ</p>
+      <p style="margin:6px 0 0;font-size:20px;font-weight:600">ต้นทุน SMT สูงขึ้น ญี่ปุ่นอาจดึงการผลิตกลับ ยอดญี่ปุ่นปี 2027 จะลดลง</p>
+    </div>
+    <div class="card col" style="border-top:5px solid #0B5F63">
+      <p class="kicker" style="font-size:24px;letter-spacing:0">2 · เหตุผล / เป้าหมาย</p>
+      <p style="margin:6px 0 0;font-size:20px;font-weight:600">ทำให้ SMT ถูกกว่าญี่ปุ่นอย่างพิสูจน์ได้ และสร้างยอดขายไทยโต 130% ต่อปี</p>
+    </div>
+    <div class="card col" style="border-top:5px solid #B45309">
+      <p class="kicker" style="color:#8A3F06;font-size:24px;letter-spacing:0">3 · Action คลัง-ชิปปิ้ง</p>
+      <p style="margin:6px 0 0;font-size:20px;font-weight:600">ลดค่าใช้จ่าย ≥5% · ส่งข้อมูลต้นทุน · Multi-skill · รองรับยอดไทย</p>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: CAUSE -->
+<div class="wrap" style="margin-top:40px">
+  <p class="kicker" id="s1" style="color:#8F1D14;font-size:18px">ส่วนที่ 1</p>
+  <h2 class="h2">สาเหตุ: ทำไมต้องเปลี่ยนในปี 2027</h2>
+  <p class="lead">SMT เคยได้เปรียบเพราะญี่ปุ่นรับซื้อทั้งหมด ไม่มีสต็อกค้าง แต่สภาพแวดล้อมต่างจากตอนตั้งโรงงานปี 2004 แล้ว <span class="tag tag-doc">จากเอกสาร</span></p>
+
+  <div class="row" style="margin-top:22px;align-items:stretch">
+    <div class="card" style="flex:1 1 380px">
+      <p style="margin:0;font-size:16px;font-weight:600">ยอดขายคาดการณ์ปิดปี 2026 ≈ 700 ล้านบาท</p>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="flex:0 0 92px;font-size:14px">ขายญี่ปุ่น</span>
+          <div class="bar-track"><div class="bar-fill" style="width:100%;background:#0B3C40">~640 ล้านบาท</div></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="flex:0 0 92px;font-size:14px">ขายในไทย</span>
+          <div class="bar-track"><div style="display:flex;align-items:center;gap:8px"><div class="bar-fill" style="width:60px;background:#B45309"></div><span style="font-size:14px;font-weight:600;white-space:nowrap">~57 ล้านบาท (เป้า 60) · ~8%</span></div></div>
+        </div>
+      </div>
+      <p style="margin:16px 0 0;font-size:14px;color:#4B5563">พึ่งญี่ปุ่นเกือบทั้งหมด — ถ้ายอดญี่ปุ่นลด ยอดรวมลดทันที</p>
+    </div>
+
+    <div class="card" style="flex:1 1 380px;background:#FCEBE8;border-color:#E9B8B1">
+      <p style="margin:0;font-size:16px;font-weight:600;color:#8F1D14">สิ่งที่เปลี่ยนไป</p>
+      <ul class="ck" style="margin-top:12px">
+        <li style="color:#3A1410">ค่าเงินเยนและราคาวัตถุดิบ ทำให้ราคาขาย SMT → ญี่ปุ่น สูงขึ้นเรื่อยๆ</li>
+        <li style="color:#3A1410">บางสินค้า ผลิตที่ญี่ปุ่นถูกกว่าแล้ว (เดิมผลิตที่ SMT ถูกกว่ามาก)</li>
+        <li style="color:#3A1410">ในญี่ปุ่นมีเสียงให้ย้ายการผลิตกลับ</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="lbl" style="margin-top:26px">ห่วงโซ่ผลกระทบ ถ้าไม่ทำอะไร</p>
+  <div class="row" style="margin-top:10px;gap:8px;align-items:stretch">
+    <div class="node">ต้นทุนสูงขึ้น<small>เงินเยน + วัตถุดิบ</small></div>
+    <span class="arrow">›</span>
+    <div class="node">ราคาขายให้ญี่ปุ่นสูงขึ้น<small>แพงกว่าผลิตเองบางรายการ</small></div>
+    <span class="arrow">›</span>
+    <div class="node">ญี่ปุ่นดึงการผลิตกลับ<small>ยอดญี่ปุ่นปี 2027 ลดลง</small></div>
+    <span class="arrow">›</span>
+    <div class="node" style="background:#FCEBE8;border-color:#E9B8B1;color:#5C1710">ยอดรวมลดต่อเนื่อง<small style="color:#5C1710">กระทบงานของพนักงาน 141 คน</small></div>
+  </div>
+  <p style="margin:14px 0 0;font-size:15px;font-weight:600;color:#0B5F63">COO ย้ำ: &ldquo;ตอนนี้คือจังหวะสำคัญ&rdquo;</p>
+</div>
+
+<!-- SECTION 2: REASON (pillars) -->
+<div class="wrap" style="margin-top:44px">
+  <p class="kicker" id="s2" style="font-size:18px">ส่วนที่ 2</p>
+  <h2 class="h2">เหตุผล: นโยบายปี 2027 ตอบโจทย์อย่างไร</h2>
+  <p class="lead">ทุกแผนกต้องตั้งเป้าหมายปี 2027 ของตนให้สอดคล้องกับ 2 นโยบายหลัก บนฐานความปลอดภัยและคุณภาพ <span class="tag tag-doc">จากเอกสาร</span></p>
+
+  <div class="row" style="margin-top:22px;align-items:stretch">
+    <div class="card col" style="flex-basis:340px">
+      <div style="display:flex;gap:12px;align-items:center"><span class="num">1</span><p style="margin:0;font-size:19px;font-weight:700">Marketing + Localization</p></div>
+      <p style="margin:10px 0 0;font-size:15px;color:#3F4854">เพิ่มยอดขายที่ไม่ขึ้นกับญี่ปุ่น เริ่มที่ไทย แล้วขยายสู่ ASEAN ร่วมกับ SIT</p>
+      <p class="lbl">ยอดขายในประเทศ (ล้านบาท)</p>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:8px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="flex:0 0 64px;font-size:13px">2026</span><div class="bar-track" style="height:26px"><div class="bar-fill" style="height:26px;width:36%;background:#6B7280">57</div></div></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="flex:0 0 64px;font-size:13px">2027</span><div class="bar-track" style="height:26px"><div class="bar-fill" style="height:26px;width:47%;background:#0B5F63">75</div></div></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="flex:0 0 64px;font-size:13px">2030</span><div class="bar-track" style="height:26px"><div class="bar-fill" style="height:26px;width:100%;background:#0B3C40">160 (~3 เท่า)</div></div></div>
+      </div>
+      <p style="margin:12px 0 0;font-size:13.5px;color:#4B5563">เป้าโต 130% ต่อปี ตกลงร่วมกับ SIT &ldquo;ไม่ใช่ตัวเลขคิดเอง แต่สมจริง&rdquo;</p>
+    </div>
+
+    <div class="card col" style="flex-basis:340px">
+      <div style="display:flex;gap:12px;align-items:center"><span class="num">2</span><p style="margin:0;font-size:19px;font-weight:700">ความสามารถแข่งขันด้านต้นทุน</p></div>
+      <p style="margin:10px 0 0;font-size:15px;color:#3F4854">ให้ญี่ปุ่นขอให้ SMT ผลิต เพราะถูกกว่าผลิตเอง และพิสูจน์ได้ด้วยตัวเลข</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:16px">
+        <div style="flex:1 1 130px;background:#DCEEEE;border-radius:12px;padding:14px">
+          <div style="font-size:34px;font-weight:700;line-height:1.1;color:#0B3C40">≥5%</div>
+          <div style="font-size:13.5px;margin-top:4px">ลดค่าใช้จ่ายต่อเนื่อง (ลดได้ 7–10% ยิ่งดี)</div>
+        </div>
+        <div style="flex:1 1 130px;background:#DCEEEE;border-radius:12px;padding:14px">
+          <div style="font-size:34px;font-weight:700;line-height:1.1;color:#0B3C40">1.5%</div>
+          <div style="font-size:13.5px;margin-top:4px">ลดต้นทุนการผลิต (รอปรับตามงบ 2027)</div>
+        </div>
+      </div>
+      <p style="margin:12px 0 0;font-size:13.5px;color:#4B5563">งบ 2027 ใช้ให้ต่ำกว่างบ เช่น งบ 1 ล้าน ใช้จริง 9 แสน</p>
+    </div>
+
+    <div class="card col" style="flex-basis:340px">
+      <div style="display:flex;gap:12px;align-items:center"><span class="num" style="background:#0B3C40">0</span><p style="margin:0;font-size:19px;font-weight:700">พื้นฐานโรงงาน: ZERO</p></div>
+      <div style="display:flex;gap:12px;margin-top:16px">
+        <div style="flex:1;background:#F4F1EA;border-radius:12px;padding:14px;text-align:center"><div style="font-size:30px;font-weight:700;color:#0B3C40">0</div><div style="font-size:14px">อุบัติเหตุ<br>(安全)</div></div>
+        <div style="flex:1;background:#F4F1EA;border-radius:12px;padding:14px;text-align:center"><div style="font-size:30px;font-weight:700;color:#0B3C40">0</div><div style="font-size:14px">ปัญหาคุณภาพ<br>(品質)</div></div>
+      </div>
+      <p class="lbl">วัฒนธรรมที่ COO ต้องการ</p>
+      <ul style="margin:6px 0 0;padding-left:18px;font-size:14.5px;display:flex;flex-direction:column;gap:4px">
+        <li>Multi-skill ทลายงานแบบแยกส่วน (縦割り)</li>
+        <li>กล้าท้าทายสิ่งใหม่ โดยมีข้อมูลวิเคราะห์รองรับ</li>
+        <li>ไม่มีการเลิกจ้างแน่นอน</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- Section 2 continued: price comparison -->
+<div class="wrap" style="margin-top:20px">
+  
+  <div class="card" style="margin-top:8px;background:#0B3C40;color:#fff;border-color:#0B3C40">
+    <p style="margin:0;font-size:19px;font-weight:700">กลไกพิสูจน์ว่า SMT ถูกกว่า: ต้องเปรียบเทียบเป็นตัวเลขต่อเนื่อง</p>
+    <div class="row" style="margin-top:16px;gap:8px;align-items:stretch">
+      <div class="node" style="background:#12535A;border-color:#2C7C82;color:#fff">ราคาขาย SMT<small style="color:#CFE7E5">ราคาที่ส่งให้ญี่ปุ่น</small></div>
+      <span class="arrow" style="color:#F6D9A8">+</span>
+      <div class="node" style="background:#12535A;border-color:#2C7C82;color:#fff">ค่าใช้จ่ายนำเข้า<small style="color:#CFE7E5">ที่เกิดฝั่งญี่ปุ่น (รวมในต้นทุนจริง)</small></div>
+      <span class="arrow" style="color:#F6D9A8">vs</span>
+      <div class="node" style="background:#12535A;border-color:#2C7C82;color:#fff">ต้นทุนผลิตเองที่ญี่ปุ่น<small style="color:#CFE7E5">รายสินค้า</small></div>
+      <span class="arrow" style="color:#F6D9A8">=</span>
+      <div class="node" style="background:#F6D9A8;border-color:#F6D9A8;color:#3A2300">ถูกกว่าจริง → ขอ Incentive ได้<small style="color:#3A2300">ถ้ายังแพงกว่าญี่ปุ่น ขอไม่ได้</small></div>
+    </div>
+    <p style="margin:14px 0 0;font-size:14.5px;color:#CFE7E5">ค่าขนส่ง-คลังสินค้าเป็นส่วนหนึ่งของ &ldquo;ค่าใช้จ่าย&rdquo; ที่ทำให้ราคาแพงขึ้นหรือถูกลง จึงเป็นจุดที่แผนกนี้มีผลโดยตรง <span class="tag tag-prop">ข้อเสนอแนะ</span></p>
+  </div>
+</div>
+
+<!-- SECTION 3: ACTIONS -->
+<div class="wrap" style="margin-top:52px">
+  <p class="kicker" id="s3" style="color:#8A3F06">ส่วนที่ 3</p>
+  <h2 class="h2">Action สำหรับแผนกคลังสินค้า-ชิปปิ้ง</h2>
+  <p class="lead">เอกสารไม่ได้ระบุเป้าเฉพาะแผนกคลัง-ชิปปิ้ง ด้านล่างคือการแปลงนโยบายกลางมาเป็นแนวทางที่ทำได้จริง ติดป้ายไว้ว่าข้อใดมาจากเอกสาร ข้อใดเป็นข้อเสนอ</p>
+
+  <div class="row" style="margin-top:22px;align-items:stretch">
+
+    <div class="card col" style="flex-basis:480px">
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span class="num" style="background:#B45309">A</span><p style="margin:0;font-size:19px;font-weight:700;flex:1 1 200px">ลดค่าใช้จ่ายคลัง-ชิปปิ้ง ≥5%</p><span class="tag tag-doc">นโยบายที่ 2</span></div>
+      <p style="margin:10px 0 0;font-size:14.5px;color:#3F4854">ทุกระดับต้องคิดว่า &ldquo;ตอนนี้ยังไม่ใช่ขีดสุด&rdquo; และใช้จ่ายให้ต่ำกว่างบ</p>
+      <p class="lbl">แนวทาง <span class="tag tag-prop" style="margin-left:6px">ข้อเสนอแนะ</span></p>
+      <ul class="ck">
+        <li>แยกค่าใช้จ่ายปี 2026 รายหมวด (ค่าขนส่ง/ระวาง, พื้นที่จัดเก็บ, แรงงาน/OT, วัสดุ-พาเลท) แล้วหา Top 3 ที่ลดได้ก่อน</li>
+        <li>โหลดสินค้าให้เต็มพาเลท/ตู้ ลดจำนวนเที่ยวและค่าระวางต่อหน่วย</li>
+        <li>เปรียบเทียบราคาและเจรจาผู้ให้บริการขนส่ง/forwarder</li>
+        <li>ตั้งงบ 2027 ให้ต่ำกว่าปี 2026 และติดตามรายเดือน</li>
+      </ul>
+    </div>
+
+    <div class="card col" style="flex-basis:480px">
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span class="num" style="background:#B45309">B</span><p style="margin:0;font-size:19px;font-weight:700;flex:1 1 200px">ข้อมูลต้นทุน Logistics รายสินค้า</p><span class="tag tag-doc">เปรียบเทียบ SMT vs ญี่ปุ่น</span></div>
+      <p style="margin:10px 0 0;font-size:14.5px;color:#3F4854">ราคาที่ญี่ปุ่นจ่ายจริงต้องรวมค่าใช้จ่ายนำเข้า — การเปรียบเทียบรายสินค้าเป็น Action ของ COO</p>
+      <p class="lbl">แนวทาง <span class="tag tag-prop" style="margin-left:6px">ข้อเสนอแนะ</span></p>
+      <ul class="ck">
+        <li>รวบรวมค่า freight / ท่าเรือ / handling / บรรจุ ต่อสินค้า (ต่อ carton หรือต่อตู้)</li>
+        <li>ส่งข้อมูลให้ทีมที่ทำตารางเปรียบเทียบ และอัปเดตต่อเนื่อง</li>
+        <li>ชี้จุดที่ logistics ทำให้ราคาแพง เช่น ตู้ไม่เต็ม บรรจุภัณฑ์กินพื้นที่</li>
+      </ul>
+    </div>
+
+    <div class="card col" style="flex-basis:480px">
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span class="num" style="background:#B45309">C</span><p style="margin:0;font-size:19px;font-weight:700;flex:1 1 200px">Multi-skill ข้ามคน ข้ามงาน</p><span class="tag tag-doc">เสาหลัก 1</span></div>
+      <p style="margin:10px 0 0;font-size:14.5px;color:#3F4854">เลิกแนวคิด &ldquo;คนนี้ทำแค่งานนี้&rdquo; เพื่อรับมือคนลา ลดกำลังคนที่ต้องใช้ และประเมินผลเป็นธรรม — คนที่ว่างขึ้นไปทำงานเพิ่มมูลค่า (Localization/วิเคราะห์) ไม่มีการเลิกจ้าง</p>
+      <p class="lbl">แนวทาง <span class="tag tag-prop" style="margin-left:6px">ข้อเสนอแนะ</span></p>
+      <ul class="ck">
+        <li>ทำ Skill matrix: รับ-จ่ายสินค้า, จัดเตรียม, โหลดตู้, เอกสารส่งออก, นับสต็อก</li>
+        <li>Cross-training ให้ทำแทนกันได้อย่างน้อย 2 งานต่อคน</li>
+        <li>ทบทวนกำลังคนและการจัดโครงสร้างทีม (ตัวอย่างในเอกสาร: รวม HR + GA)</li>
+        <li>ผู้จัดการสื่อสารกับทีมให้ชัดว่า ไม่มีเลิกจ้าง</li>
+      </ul>
+    </div>
+
+    <div class="card col" style="flex-basis:480px">
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span class="num" style="background:#B45309">D</span><p style="margin:0;font-size:19px;font-weight:700;flex:1 1 200px">รองรับยอดขายไทยโต 130%</p><span class="tag tag-doc">นโยบายที่ 1</span></div>
+      <p style="margin:10px 0 0;font-size:14.5px;color:#3F4854">ตลาดไทยเน้นราคา ลดคุณภาพส่วนเกินได้ถ้าไม่กระทบการใช้งาน (รั่วซึมยังรับไม่ได้) — ตัวอย่างในเอกสาร: กล่องที่ญี่ปุ่นตีกลับเพราะยับเล็กน้อย</p>
+      <p class="lbl">แนวทาง <span class="tag tag-prop" style="margin-left:6px">ข้อเสนอแนะ</span></p>
+      <ul class="ck">
+        <li>วางแผนพื้นที่เก็บและรอบส่งในประเทศ รองรับยอดไทย ~57 → ~75 ล้านบาท</li>
+        <li>ร่วมกับ QC/QA ทบทวนมาตรฐานการบรรจุ/จัดส่งสำหรับตลาดไทย</li>
+        <li>เก็บข้อมูลความเสียหาย/ข้อร้องเรียนจากการขนส่งให้ทีม Localization</li>
+        <li>ประสานผ่านคุณสา (SMT) ซึ่งเป็นตัวกลางงาน Localization</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Challenge + Safety -->
+  <div class="row" style="margin-top:16px;align-items:stretch">
+    <div class="card col" style="flex-basis:480px">
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><span class="num" style="background:#B45309">E</span><p style="margin:0;font-size:19px;font-weight:700;flex:1 1 200px">กล้าท้าทาย และเสนอด้วยข้อมูล</p><span class="tag tag-doc">วัฒนธรรมองค์กร</span></div>
+      <p style="margin:10px 0 0;font-size:14.5px;color:#3F4854">COO ให้คุณค่ากับคนที่ท้าทายแล้วล้มเหลว มากกว่าคนที่ไม่ทำอะไร และรับผิดชอบสูงสุดเอง แต่ต้องมีข้อมูลรองรับ ไม่ใช่ความบ้าบิ่น</p>
+      <div style="display:flex;flex-wrap:nowrap;gap:4px;margin-top:14px;align-items:stretch">
+        <div class="node" style="flex:1 1 0;padding:10px 4px;font-size:14px;text-align:center">ปัญหา</div><span class="arrow" style="font-size:16px">›</span>
+        <div class="node" style="flex:1 1 0;padding:10px 4px;font-size:14px;text-align:center">ข้อมูล</div><span class="arrow" style="font-size:16px">›</span>
+        <div class="node" style="flex:1 1 0;padding:10px 4px;font-size:14px;text-align:center">วิเคราะห์</div><span class="arrow" style="font-size:16px">›</span>
+        <div class="node" style="flex:1 1 0;padding:10px 4px;font-size:14px;text-align:center">แผน</div><span class="arrow" style="font-size:16px">›</span>
+        <div class="node" style="flex:1 1 0;padding:10px 4px;font-size:14px;text-align:center">ผลที่คาด</div>
+      </div>
+      <p style="margin:8px 0 0;font-size:13px;color:#4B5563">รูปแบบ PR มาตรฐานใหม่ที่ทุกแผนกจะใช้ <span class="tag tag-doc">จากเอกสาร</span></p>
+      <p class="lbl">แนวทาง <span class="tag tag-prop" style="margin-left:6px">ข้อเสนอแนะ</span></p>
+      <ul class="ck">
+        <li>ทุกไอเดียปรับปรุงงานคลัง-ชิปปิ้ง (เช่น วิธีโหลด, การจัดวาง, automation) เขียนตามลำดับนี้ก่อนขออนุมัติ</li>
+        <li>คิดแบบ zero-based เริ่มจากก้าวแรกตรงหน้า และปรึกษา SARAYA Japan ได้</li>
+      </ul>
+    </div>
+
+    <div class="card col" style="flex-basis:480px;background:#0B3C40;color:#fff;border-color:#0B3C40">
+      <p style="margin:0;font-size:19px;font-weight:700">ข้อควรระวังตลอดการลดต้นทุน</p>
+      <p style="margin:10px 0 0;font-size:15px;color:#CFE7E5">ฐานของโรงงานคือ <strong style="color:#F6D9A8">อุบัติเหตุ ZERO และปัญหาคุณภาพ ZERO</strong> ทุกปี <span class="tag tag-doc" style="background:#fff;color:#0B3C40">จากเอกสาร</span></p>
+      <ul style="margin:14px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:8px;font-size:15px;color:#fff">
+        <li>การลดต้นทุนไม่แลกกับความปลอดภัยในคลัง (เช่น การใช้รถยกและการเรียงสินค้า)</li>
+        <li>ลดเฉพาะสเปกส่วนเกินที่ไม่กระทบการใช้งาน — สินค้าเสียหายระหว่างขนส่งหรือรั่วซึมรับไม่ได้</li>
+      </ul>
+      <p style="margin:12px 0 0;font-size:13px;color:#CFE7E5"><span class="tag tag-prop">ข้อเสนอแนะ</span></p>
+    </div>
+  </div>
+</div>
+<div class="wrap" style="margin-top:60px">
+  <p class="kicker" id="s4">ส่วนที่ 4</p>
+  <h2 class="h2">ลำดับการทำงาน และตัวชี้วัดที่ควรติดตาม</h2>
+  <p class="lead">COO สั่งให้เริ่มทันที: ตั้งเป้าและแผนปี 2027, ตรวจงบ และวางกลไกเปรียบเทียบต้นทุน SMT vs ญี่ปุ่น <span class="tag tag-doc">จากเอกสาร</span> — ช่วงเวลาด้านล่างเป็นข้อเสนอเพื่อใช้วางแผน <span class="tag tag-prop">ข้อเสนอแนะ</span></p>
+
+  <div class="row" style="margin-top:22px;align-items:stretch">
+    <div class="card col" style="flex-basis:300px;border-top:5px solid #B45309">
+      <p class="kicker" style="color:#8A3F06">ระยะที่ 1 · เริ่มทันที</p>
+      <p style="margin:2px 0 0;font-size:15px;color:#4B5563">ก่อนปีใหม่</p>
+      <ul class="ck">
+        <li>ตรวจงบ 2027 รอบสุดท้าย หาจุดใช้จ่ายต่ำกว่างบ</li>
+        <li>ตั้งเป้าและแผนปี 2027 ของแผนก</li>
+        <li>สรุปค่าใช้จ่าย 2026 เป็น baseline</li>
+      </ul>
+    </div>
+    <div class="card col" style="flex-basis:300px;border-top:5px solid #B45309">
+      <p class="kicker" style="color:#8A3F06">ระยะที่ 2 · ไตรมาสแรก 2027</p>
+      <p style="margin:2px 0 0;font-size:13px;color:#4B5563">วางระบบ</p>
+      <ul class="ck">
+        <li>ส่งข้อมูลต้นทุน logistics รายสินค้า</li>
+        <li>ทำ Skill matrix และเริ่ม cross-training</li>
+        <li>ทบทวนมาตรฐานบรรจุ/จัดส่งตลาดไทยกับ QC/QA</li>
+        <li>สื่อสารทีมเรื่อง multi-skill</li>
+      </ul>
+    </div>
+    <div class="card col" style="flex-basis:300px;border-top:5px solid #B45309">
+      <p class="kicker" style="color:#8A3F06">ระยะที่ 3 · ตลอดปี 2027</p>
+      <p style="margin:2px 0 0;font-size:13px;color:#4B5563">ติดตามและต่อยอด</p>
+      <ul class="ck">
+        <li>ติดตามค่าใช้จ่ายรายเดือน เทียบงบ</li>
+        <li>ปรับแผนรองรับยอดขายไทยที่โตขึ้น</li>
+        <li>เสนอไอเดียใหม่ตามรูปแบบ ปัญหา → ผลที่คาด</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:32px">
+    <p style="margin:0;font-size:24px;font-weight:700">ตัวชี้วัด (KPI) ที่ควรตั้ง</p>
+    <div style="margin-top:6px">
+      <div class="kpi"><span style="flex:0 0 auto;font-weight:600;min-width:260px">ค่าใช้จ่ายคลัง-ชิปปิ้งรวม</span><span style="flex:1 1 200px">ลดอย่างน้อย 5% จากปี 2026 (ท้าทาย 7–10%)</span><span class="tag tag-doc">จากเอกสาร</span></div>
+      <div class="kpi"><span style="flex:0 0 auto;font-weight:600;min-width:260px">ใช้จ่ายจริง เทียบงบ 2027</span><span style="flex:1 1 200px">ต่ำกว่างบที่ตั้งไว้</span><span class="tag tag-doc">จากเอกสาร</span></div>
+      <div class="kpi"><span style="flex:0 0 auto;font-weight:600;min-width:260px">อุบัติเหตุ / ปัญหาคุณภาพ</span><span style="flex:1 1 200px">0 ทั้งสองรายการ</span><span class="tag tag-doc">จากเอกสาร</span></div>
+      <div class="kpi"><span style="flex:0 0 auto;font-weight:600;min-width:260px">ข้อมูลต้นทุน logistics รายสินค้า</span><span style="flex:1 1 200px">ส่งครบสินค้าที่ตกลงกับทีมเปรียบเทียบ (แผนกกำหนดเอง)</span><span class="tag tag-prop">ข้อเสนอแนะ</span></div>
+      <div class="kpi"><span style="flex:0 0 auto;font-weight:600;min-width:260px">สัดส่วนพนักงานที่ทำงานแทนกันได้</span><span style="flex:1 1 200px">ตั้งเป้าตาม Skill matrix (แผนกกำหนดเอง)</span><span class="tag tag-prop">ข้อเสนอแนะ</span></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:32px;background:#FBE9D0;border-color:#E3BC8A">
+    <p style="margin:0;font-size:20px;font-weight:700;color:#5E2C00">ข้อมูลที่ยังต้องยืนยันกับผู้บริหาร</p>
+    <ul style="margin:8px 0 0;padding-left:18px;font-size:17px;color:#3A2300;display:flex;flex-direction:column;gap:4px">
+      <li>งบประมาณ 2027 อยู่ระหว่างตรวจสอบรอบสุดท้าย และเป้าลดต้นทุนผลิต 1.5% รอปรับตามงบ</li>
+      <li>เป้าเฉพาะคลัง-ชิปปิ้ง (เปอร์เซ็นต์ที่ลดแต่ละหมวด) แผนกต้องตั้งเองให้สอดคล้องนโยบาย</li>
+    </ul>
+  </div>
+</div>
+</main>
+<footer class="sitefoot"><div class="wrap"><span>ที่มา: สรุปการประชุมนโยบาย SMT ปี 2027 (Kitano COO) 4/11/2026 · ข้อเสนอแนะสำหรับคลัง-ชิปปิ้งเป็นการตีความจากนโยบาย ไม่ใช่คำสั่งโดยตรงของ COO</span><span>Creator : <b>Sitthitas</b></span></div></footer>
+</body>
+</html>
