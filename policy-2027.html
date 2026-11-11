@@ -9,10 +9,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Noto+Sans+JP:wght@700&display=swap" rel="stylesheet">
 <style>
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;background:#F4F1EA}
 body{margin:0;background:#F4F1EA;color:#1B2430;font-family:'IBM Plex Sans Thai','Noto Sans Thai',Tahoma,system-ui,sans-serif;line-height:1.55;-webkit-text-size-adjust:100%}
 *{box-sizing:border-box}
-.wrap{max-width:1152px;margin:0 auto;padding:0 20px}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px}
 .card{background:#fff;border:1px solid #D9D3C5;border-radius:14px;padding:24px;min-width:0}
 .tag{display:inline-block;font-size:12px;font-weight:600;padding:1px 10px;border-radius:999px;line-height:1.7;white-space:nowrap}
 .tag-doc{background:#0B5F63;color:#fff}
@@ -46,10 +46,19 @@ ul.ck li:before{content:"";position:absolute;left:0;top:.5em;width:10px;height:1
   .hero-h1{font-size:36px !important}
   .h2{font-size:28px}
   .kicker[style*="24px"]{font-size:20px !important}
-  .wrap{padding:0 16px}
+  .wrap{padding:0 16px !important}
   .card{padding:20px}
 }
 @media (max-width:520px){.hero-h1{font-size:30px !important}.topnav .brand{display:none}.arrow{display:none}}
+
+/* ขยายทั้งหน้าให้เต็มจอบนหน้าจอกว้าง (ตัวอักษรและพื้นที่โตตามจอ) */
+@media (min-width:1440px){html{zoom:1.15}}
+@media (min-width:1700px){html{zoom:1.35}}
+@media (min-width:2000px){html{zoom:1.6}}
+@media (min-width:2500px){html{zoom:2}}
+@media (min-width:3000px){html{zoom:2.4}}
+@media (min-width:3600px){html{zoom:2.9}}
+@media print{html{zoom:1 !important}}
 @page{size:A4;margin:10mm}
 @media print{
   body{-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#F4F1EA}
